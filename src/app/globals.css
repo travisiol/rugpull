@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/*
+ * RUGPULL — the first rug with a warning label.
+ *
+ * One column of black, one monospaced face, and the number. Amber for
+ * the one control you can press, green for candles going up, red for the
+ * rug — the line at $100,000, and nothing else until it is crossed.
+ */
+:root {
+  --black: #000000;
+  --rule: #1c1c1c;
+  --rule-strong: #333333;
+
+  --text: #eaeaea;
+  --text-dim: #8a8a8a;
+  --text-muted: #555555;
+
+  --amber: #ffb000;
+  --up: #00d26a;
+  --down: #ff3b3b;
+}
+
+@theme inline {
+  --color-black: var(--black);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-muted: var(--text-muted);
+  --color-amber: var(--amber);
+  --color-up: var(--up);
+  --color-down: var(--down);
+
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+}
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-mono), monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--black);
+}
+
+:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* ---- Type -------------------------------------------------------------- */
+
+.t-hero {
+  font-weight: 600;
+  font-size: clamp(36px, 6.4vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.t-title {
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.t-figure {
+  font-weight: 600;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.t-key {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.t-small {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---- Controls ---------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--amber);
+  background: var(--amber);
+  color: var(--black);
+  transition: background-color 120ms, color 120ms, border-color 120ms;
+}
+
+.btn:hover {
+  background: var(--black);
+  color: var(--amber);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--rule-strong);
+}
+
+.btn-ghost:hover {
+  background: transparent;
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--rule);
+}
+
+.btn-down {
+  border-color: var(--down);
+  background: var(--down);
+}
+
+.btn-down:hover {
+  color: var(--down);
+}
+
+/* Rows in a list: a rule between each. */
+.row {
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* The connect panel. */
+.panel {
+  background: var(--black);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 44px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.panel-body {
+  padding: 16px;
+}
+
+/* ---- Motion ------------------------------------------------------------ */
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor::after {
+  content: "▮";
+  margin-left: 4px;
+  color: var(--amber);
+  animation: blink 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cursor::after {
+    animation: none;
+  }
+}
